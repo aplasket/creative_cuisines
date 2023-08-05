@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Recipes Index Request" do
   describe "fetches all recipes" do
-    it "requests recipes from a specific country" do
+    it "requests recipes from a specific country", :vcr do
       get "/api/v1/recipes?country=thailand"
 
       expect(response).to be_successful
