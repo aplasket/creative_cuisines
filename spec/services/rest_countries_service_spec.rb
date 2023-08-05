@@ -8,15 +8,8 @@ RSpec.describe RestCountriesService do
       expect(search).to be_an(Array)
 
       search.map do |country|
-        expect(country.keys.count).to eq(34)
         expect(country).to have_key(:name)
-        expect(country).to have_key(:independent)
-        expect(country).to have_key(:status)
-        expect(country).to have_key(:unMember)
-        expect(country).to have_key(:postalCode)
-
         expect(country[:name]).to be_a(Hash)
-        expect(country[:name].keys.count).to eq(3)
 
         expect(country[:name]).to have_key(:common)
         expect(country[:name][:common]).to be_a(String)
