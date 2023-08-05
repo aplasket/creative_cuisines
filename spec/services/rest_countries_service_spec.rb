@@ -16,7 +16,7 @@ RSpec.describe RestCountriesService do
         expect(country).to have_key(:postalCode)
 
         expect(country[:name]).to be_a(Hash)
-        expect(count[:name].keys.count).to eq(3)
+        expect(country[:name].keys.count).to eq(3)
 
         expect(country[:name]).to have_key(:common)
         expect(country[:name][:common]).to be_a(String)
