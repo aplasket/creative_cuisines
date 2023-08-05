@@ -4,9 +4,9 @@ class CountryFacade
   end
 
   def get_country
-    if @params.empty?
-      nil
-    elsif @params == "random_country"
+    return nil if @params.empty?
+
+    if @params == "random_country"
       random_country
     else
       @params
