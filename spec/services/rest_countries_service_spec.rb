@@ -4,7 +4,6 @@ RSpec.describe RestCountriesService do
   describe "#get_random_country" do
     it "establishes a connection to restcountries api based on query params", :vcr do
       search = RestCountriesService.new.get_random_country
-      binding.pry
 
       expect(search).to be_an(Array)
 
