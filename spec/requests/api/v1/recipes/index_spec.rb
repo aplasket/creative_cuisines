@@ -65,6 +65,9 @@ RSpec.describe "Recipes Index Request" do
 
       expect(data).to have_key(:data)
       expect(data[:data]).to eq([])
+      expect(data[:data]).to_not have_key(:id)
+      expect(data[:data]).to_not have_key(:type)
+      expect(data[:data]).to_not have_key(:attributes)
     end
 
     it "returns empty data hash if user inputs empty string", :vcr do
@@ -77,6 +80,9 @@ RSpec.describe "Recipes Index Request" do
 
       expect(data).to have_key(:data)
       expect(data[:data]).to eq([])
+      expect(data[:data]).to_not have_key(:id)
+      expect(data[:data]).to_not have_key(:type)
+      expect(data[:data]).to_not have_key(:attributes)
     end
 
     it "finds recipes based on random country when user selects 'choose country for me'", :vcr do
