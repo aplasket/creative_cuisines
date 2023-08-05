@@ -23,6 +23,7 @@ RSpec.describe "Recipes Index Request" do
 
         expect(recipe).to have_key(:attributes)
         expect(recipe[:attributes]).to be_a(Hash)
+        expect(recipe[:attributes].keys.count).to eq(4)
 
         expect(recipe[:attributes]).to have_key(:title)
         expect(recipe[:attributes][:title]).to be_a(String)
@@ -35,6 +36,22 @@ RSpec.describe "Recipes Index Request" do
 
         expect(recipe[:attributes]).to have_key(:image)
         expect(recipe[:attributes][:image]).to be_a(String)
+
+        expect(recipe[:attributes]).to_not have_key(:source)
+        expect(recipe[:attributes]).to_not have_key(:yield)
+        expect(recipe[:attributes]).to_not have_key(:dietLabels)
+        expect(recipe[:attributes]).to_not have_key(:healthLabels)
+        expect(recipe[:attributes]).to_not have_key(:cautions)
+        expect(recipe[:attributes]).to_not have_key(:ingredients)
+        expect(recipe[:attributes]).to_not have_key(:cautions)
+        expect(recipe[:attributes]).to_not have_key(:ingredientLines)
+        expect(recipe[:attributes]).to_not have_key(:calories)
+        expect(recipe[:attributes]).to_not have_key(:cuisineType)
+        expect(recipe[:attributes]).to_not have_key(:mealType)
+        expect(recipe[:attributes]).to_not have_key(:dishType)
+        expect(recipe[:attributes]).to_not have_key(:totalNutrients)
+        expect(recipe[:attributes]).to_not have_key(:digest)
+        expect(recipe[:attributes]).to_not have_key(:_links)
       end
     end
   end
