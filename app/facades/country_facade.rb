@@ -1,6 +1,6 @@
 class CountryFacade
   def initialize(params)
-    @params = params[:country]
+    @params = params
   end
 
   def get_country
