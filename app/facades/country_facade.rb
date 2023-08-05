@@ -15,7 +15,7 @@ class CountryFacade
 
 
   def random_country
-    json = RestCountriesService.new.name_a_country
+    json = RestCountriesService.new.get_random_country
 
     json.sample[:name][:common]
   end

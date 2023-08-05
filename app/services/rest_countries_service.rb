@@ -1,5 +1,5 @@
 class RestCountriesService
-  def name_a_country
+  def get_random_country
     response = conn.get("/v3.1/all")
     json = JSON.parse(response.body, symbolize_names: true)
   end
