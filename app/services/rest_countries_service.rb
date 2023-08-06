@@ -1,7 +1,17 @@
 class RestCountriesService
   def get_random_country
-    response = conn.get("/v3.1/all")
-    json = JSON.parse(response.body, symbolize_names: true)
+    get_url("/v3.1/all")
+  end
+
+  def get_capital(country)
+    # formatted_country = country.split.join("%")
+    # get_url("/v3.1/name/#{formatted_country}?fullText=true")
+    get_url("/v3.1/name/#{country}")
+  end
+
+  def get_url(url)
+    response = conn.get(url)
+    JSON.parse(response.body, symbolize_names: true)
   end
 
   def conn

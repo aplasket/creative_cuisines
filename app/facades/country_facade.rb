@@ -1,15 +1,15 @@
 class CountryFacade
-  def initialize(params)
-    @params = params
+  def initialize(country)
+    @country = country
   end
 
   def get_country
-    return nil if @params.empty?
+    return nil if @country.empty?
 
-    if @params == "random_country"
+    if @country == "random_country"
       random_country
     else
-      @params
+      @country
     end
   end
 
@@ -17,6 +17,14 @@ class CountryFacade
   def random_country
     json = RestCountriesService.new.get_random_country
 
-    json.sample[:name][:common]
+    country = json.sample[:name][:common]
+
+    # get_capital(country)
+    # country
+  end
+
+  def capital(country)
+    json = RestCountriesService.new.get_capital(country)
+    capital = json[0][:capital][0]
   end
 end
