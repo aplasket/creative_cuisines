@@ -6,7 +6,7 @@ RSpec.describe "Favorite Create Action Endpoint" do
       user = User.create!(name: "Stella", email: "puppy@ruffruff.com", password: "ilovetr3@t$", password_confirmation: "ilovetr3@t$" )
 
       user_params = {
-        "api_key": "iwxjws7q1Ztcq5WHhcTAzqvFbE39rnqU",
+        "api_key": user.api_key,
         "country": "thailand",
         "recipe_link": "https://www.tastingtable.com/.....",
         "recipe_title": "Crab Fried Rice (Khaao Pad Bpu)"
@@ -20,7 +20,7 @@ RSpec.describe "Favorite Create Action Endpoint" do
       expect(response.status).to eq(201)
 
       user = JSON.parse(response.body, symbolize_names: true)
-      binding.pry
+
       expect(user).to be_a(Hash)
       expect(user).to have_key(:success)
       expect(user[:success]).to be_a(String)
