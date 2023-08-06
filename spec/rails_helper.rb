@@ -67,14 +67,6 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-Shoulda::Matchers.configure do |config|
-  config.integrate do |with|
-    with.test_framework :rspec
-
-    with.library :rails
-  end
-end
-
 VCR.configure do |config|
   config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   config.hook_into :webmock
@@ -83,4 +75,11 @@ VCR.configure do |config|
   config.configure_rspec_metadata!
   config.default_cassette_options = { :allow_playback_repeats => true }
   config.default_cassette_options = { re_record_interval: 2.seconds}
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
