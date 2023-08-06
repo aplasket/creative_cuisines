@@ -23,8 +23,8 @@ class CountryFacade
     # country
   end
 
-  def capital(country)
-    json = RestCountriesService.new.get_capital(country)
+  def capital
+    json = RestCountriesService.new.get_capital(@country)
     capital = json[0][:capital][0]
   end
 end

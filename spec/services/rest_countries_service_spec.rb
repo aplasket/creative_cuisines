@@ -22,14 +22,13 @@ RSpec.describe RestCountriesService do
       # search = RestCountriesService.new.get_random_country
       # country = search.first[:name][:common]
 
-      country = "France"
+      params = { country: "France" }
 
-      country_data = RestCountriesService.new.get_capital(country)
-      # find_capital = CountryFacade.new(params).get_capital(params[:country])
+      country_data = RestCountriesService.new.get_capital(params[:country])
 
       expect(country_data).to be_an(Array)
       expect(country_data[0]).to have_key(:name)
-      expect(country_data[0][:name][:common]).to eq(country)
+      expect(country_data[0][:name][:common]).to eq(params[:country])
 
       expect(country_data[0]).to have_key(:capital)
       expect(country_data[0][:capital]).to be_an(Array)
