@@ -26,4 +26,14 @@ RSpec.describe CountryFacade do
       expect(country).to eq(search)
     end
   end
+
+  describe "#get capital" do
+    it "given a country, it can return the name of the capital", :vcr do
+      params = {country: "France"}
+      search = CountryFacade.new(params[:country]).capital(params[:country])
+
+      expect(search).to be_a(String)
+      expect(search).to eq("Paris")
+    end
+  end
 end
