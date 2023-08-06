@@ -81,7 +81,8 @@ RSpec.describe "Recipes Index Request" do
     end
 
     it "finds recipes based on random country when user selects 'choose country for me'", :vcr do
-      get "/api/v1/recipes?country=random_country"
+      params = {country: "random_country"}
+      get "/api/v1/recipes?country=#{params[:country]}"
 
       expect(response).to be_successful
       expect(response.status).to eq(200)
