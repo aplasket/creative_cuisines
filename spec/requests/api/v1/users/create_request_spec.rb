@@ -40,7 +40,6 @@ RSpec.describe "Create User Request" do
 
       expect(user[:data][:attributes]).to_not have_key(:password)
       expect(user[:data][:attributes]).to_not have_key(:password_confirmation)
-
     end
   end
 
@@ -64,6 +63,7 @@ RSpec.describe "Create User Request" do
 
       user = JSON.parse(response.body, symbolize_names: true)
 
+      expect(user).to be_a(Hash)
       expect(user).to have_key(:error)
       expect(user[:error]).to be_a(String)
       expect(user[:error]).to eq("Email has already been taken")
