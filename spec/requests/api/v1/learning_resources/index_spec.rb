@@ -1,0 +1,42 @@
+require "rails_helper"
+
+RSpec.describe "Learning Resources Index Request" do
+  describe "fetches learning resources" do
+    it "requests learning resources from a specific country", :vcr do
+      params = {country: "laos"}
+      get "/api/v1/learning_resources?country=#{params[:country]}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data).to have_key(:data)
+      expect(data[:data]).to have_key(:id)
+      expect(data[:data][:id]).to eq(nil)
+
+      expect(data[:data]).to have_key(:type)
+      expect(data[:data][:type]).to eq("learning_resource")
+
+      expect(data[:data]).to have_key(:attributes)
+      expect(data[:data][:attributes]).to have_key(:country)
+      expect(data[:data][:attributes][:country]).to be_a(String)
+      expect(data[:data][:attributes][:country]).to eq(params[:country])
+
+      expect(data[:data][:attributes]).to have_key(:video)
+      expect(data[:data][:attributes][:video]).to be_a(Hash)
+
+      expect(data[:data][:attributes][:video]).to have_key(:title)
+      expect(data[:data][:attributes][:video][:title]).to be_a(String)
+      expect(data[:data][:attributes][:video]).to have_key(:youtube_video_id)
+
+      expect(data[:data][:attributes]).to have_key(:images)
+      expect(data[:data][:attributes][:images]).to be_an(Array)
+      expect(data[:data][:attributes][:images].first).to have_key(:alt_tag)
+      expect(data[:data][:attributes][:images].first[:alt_tag]).to be_a(String)
+
+      expect(data[:data][:attributes][:images].first).to have_key(:url)
+      expect(data[:data][:attributes][:images].first[:url]).to be_a(String)
+    end
+  end
+end
