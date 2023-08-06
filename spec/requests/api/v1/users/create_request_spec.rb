@@ -90,7 +90,7 @@ RSpec.describe "Create User Request" do
 
       expect(user).to have_key(:error)
       expect(user[:error]).to be_a(String)
-      expect(user[:error]).to eq("Password confirmation doesn't match Password and Password confirmation doesn't match Password")
+      expect(user[:error]).to eq("Password confirmation doesn't match Password")
 
       expect(user).to_not have_key(:data)
     end
