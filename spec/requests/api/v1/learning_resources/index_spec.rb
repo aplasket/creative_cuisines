@@ -12,6 +12,8 @@ RSpec.describe "Learning Resources Index Request" do
       data = JSON.parse(response.body, symbolize_names: true)
 
       expect(data).to have_key(:data)
+      expect(data[:data].keys.count).to eq(3)
+
       expect(data[:data]).to have_key(:id)
       expect(data[:data][:id]).to eq(nil)
 
@@ -26,12 +28,16 @@ RSpec.describe "Learning Resources Index Request" do
       expect(data[:data][:attributes]).to have_key(:video)
       expect(data[:data][:attributes][:video]).to be_a(Hash)
 
+      expect(data[:data][:attributes][:video].keys.count).to eq(2)
       expect(data[:data][:attributes][:video]).to have_key(:title)
       expect(data[:data][:attributes][:video][:title]).to be_a(String)
       expect(data[:data][:attributes][:video]).to have_key(:youtube_video_id)
+      expect(data[:data][:attributes][:video][:youtube_video_id]).to be_a(String)
 
       expect(data[:data][:attributes]).to have_key(:images)
       expect(data[:data][:attributes][:images]).to be_an(Array)
+      expect(data[:data][:attributes][:images].first.keys.count).to eq(2)
+
       expect(data[:data][:attributes][:images].first).to have_key(:alt_tag)
       expect(data[:data][:attributes][:images].first[:alt_tag]).to be_a(String)
 
