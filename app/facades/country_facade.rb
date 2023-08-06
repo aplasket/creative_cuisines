@@ -20,7 +20,6 @@ class CountryFacade
     country = json.sample[:name][:common]
 
     # get_capital(country)
-
     # country
   end
 
