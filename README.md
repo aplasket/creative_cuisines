@@ -30,15 +30,15 @@ Creative Cuisine's endpoints expose data from Edamam, RESTCountries, Youtube and
 
   - [Edamam](https://developer.edamam.com/edamam-recipe-api) - ability to search for recipes via query word for the `/api/v1/recipes` endpoint
   - [RESTCountries](https://restcountries.com/#api-endpoints-v3-all) - ability to get a random country name to input into Edamam's search query for the `/api/v1/recipes` endpoint. You do not need an API from this site, however documentation is available above about the API.
-  - [Youtube](https://developers.google.com/youtube/v3/getting-started) - ability to receive video data to appear on the `api/v1/learning_resources` endpoint
-  - [Unsplash](https://unsplash.com/) - ability to get random photos to appear on the `api/v1/learning_resources` endpoint
+  - [Youtube](https://developers.google.com/youtube/v3/getting-started) - ability to receive video data to appear on the `api/v1/learning_resources` endpoint. You will need to have a google account in order to create an api_key.
+  - [Unsplash](https://unsplash.com/developers) - ability to get random photos to appear on the `api/v1/learning_resources` endpoint
 
 Once you have your key for each site, add them to the `config/application.yml` file generated when you configure Figaro (see Step 5, above). Please ensure you include the exact variable names below:
 
  - `EDAMAM_ID: <add your key here>`
  - `EDAMAM_KEY: <add your key here>`
- - `YOUTUBE_KEY: <add your key here>`
- - `UNSPLASH_KEY: <add your key here>`
+ - `GOOGLE_TOKEN: <add your key here>`
+ - `UNSPLASH_TOKEN: <add your key here>`
 
 <h2>Testing</h2>
 
