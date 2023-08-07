@@ -35,5 +35,13 @@ RSpec.describe CountryFacade do
       expect(search).to be_a(String)
       expect(search).to eq("Paris")
     end
+
+    it "returns nil if country is invalid or capital doesn't exist", :vcr do
+      params = {country: "Frnce"}
+      search = CountryFacade.new(params[:country]).capital
+
+      expect(search).to eq(nil)
+      expect(search).to_not eq("Paris")
+    end
   end
 end
