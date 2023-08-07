@@ -23,7 +23,7 @@ This project is part of the Turing School of Software + Design's Back-End Engine
 1. Configure Figaro to hide environment secret variables (see below): `bundle exec figaro install`
 1. Start the Rails server: `rails s`
 
-`With your local server running, you can use a tool like [Postman](https://www.postman.com/) or the [ThunderClient](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) extension for VS Code to make sample requests and view responses.
+With your local server running, you can use a tool like [Postman](https://www.postman.com/) or the [ThunderClient](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) extension for VS Code to make sample requests and view responses.
 
 <h3>External APIs</h3>
 Creative Cuisine's endpoints expose data from Edamam, RESTCountries, Youtube and UnSplash. You can sign up for free access to these APIs here:
