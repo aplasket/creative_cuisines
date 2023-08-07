@@ -3,7 +3,7 @@ class CityAir
               :pm25_concentration,
               :co_concentration
 
-  def initialize(data, capital)
+  def initialize(data)
     @aqi = data[:overall_aqi]
     @pm25_concentration = data[:"PM2.5"][:concentration]
     @co_concentration = data[:CO][:concentration]
