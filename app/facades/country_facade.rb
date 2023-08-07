@@ -18,14 +18,11 @@ class CountryFacade
     json = RestCountriesService.new.get_random_country
 
     country = json.sample[:name][:common]
-
-    # get_capital(country)
-    # country
   end
 
   def capital
     json = RestCountriesService.new.get_capital(@country)
-    
+
     if json.kind_of?(Hash)
       nil
     else
