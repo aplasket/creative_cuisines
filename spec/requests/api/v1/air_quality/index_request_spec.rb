@@ -45,4 +45,21 @@ RSpec.describe "AirQuality Index Request" do
       expect(aq_data[:data][:attributes]).to_not have_key(:overall_aqi)
     end
   end
+
+  describe "sad paths" do
+    it "returns error message if country is invalid", :vcr do
+      params = {country: "Fnce"}
+
+      get "/api/v1/air_quality?country=#{params[:country]}"
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      data = JSON.parse(response.body, symbolize_names: true )
+      expect(data).to have_key(:error)
+      expect(data[:error]).to be_a(String)
+      expect(data[:error]).to eq("invalid country or country does not have a capital")
+      expect(data).to_not have_key(:data)
+    end
+  end
 end
