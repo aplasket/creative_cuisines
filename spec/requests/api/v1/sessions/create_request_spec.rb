@@ -63,9 +63,13 @@ RSpec.describe "Sessions Create Request" do
         user = JSON.parse(response.body, symbolize_names: true)
 
         expect(user).to be_a(Hash)
-        expect(user).to have_key(:error)
-        expect(user[:error]).to be_a(String)
-        expect(user[:error]).to eq("Sorry, your credentials are bad.")
+        expect(user).to have_key(:errors)
+        expect(user[:errors]).to be_an(Array)
+        expect(user[:errors][0]).to have_key(:status)
+        expect(user[:errors][0][:status]).to eq("401")
+
+        expect(user[:errors][0]).to have_key(:title)
+        expect(user[:errors][0][:title]).to eq("Unauthorized user")
 
         expect(user).to_not have_key(:data)
       end
