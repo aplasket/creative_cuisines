@@ -42,14 +42,17 @@ RSpec.describe "Favorite Create Action Endpoint" do
         post "/api/v1/favorites", headers: headers, params: JSON.generate(user_params)
 
         expect(response).to_not be_successful
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(401)
 
         user = JSON.parse(response.body, symbolize_names: true)
 
-        expect(user).to be_a(Hash)
-        expect(user).to have_key(:error)
-        expect(user[:error]).to be_a(String)
-        expect(user[:error]).to eq("Unauthorized user")
+        expect(user).to have_key(:errors)
+        expect(user[:errors]).to be_an(Array)
+        expect(user[:errors][0]).to have_key(:status)
+        expect(user[:errors][0][:status]).to eq("401")
+
+        expect(user[:errors][0]).to have_key(:title)
+        expect(user[:errors][0][:title]).to eq("Unauthorized user")
     end
   end
 end

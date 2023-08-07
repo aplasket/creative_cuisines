@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Learning Resources Index Request" do
-  describe "fetches learning resources" do
+  describe "happy path" do
     it "requests learning resources from a specific country", :vcr do
       params = {country: "laos"}
       get "/api/v1/learning_resources?country=#{params[:country]}"
@@ -44,7 +44,9 @@ RSpec.describe "Learning Resources Index Request" do
       expect(data[:data][:attributes][:images].first).to have_key(:url)
       expect(data[:data][:attributes][:images].first[:url]).to be_a(String)
     end
+  end
 
+  describe "sad path" do
     it "if no videos or images are found, those keys point to an empty object", :vcr do
       params = {country: "qz_"}
       get "/api/v1/learning_resources?country=#{params[:country]}"

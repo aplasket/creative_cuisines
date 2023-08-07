@@ -88,13 +88,16 @@ RSpec.describe "AirQuality Index Request" do
       get "/api/v1/air_quality?country=#{params[:country]}"
 
       expect(response).to_not be_successful
-      expect(response.status).to eq(400)
+      expect(response.status).to eq(404)
 
       data = JSON.parse(response.body, symbolize_names: true )
-      expect(data).to have_key(:error)
-      expect(data[:error]).to be_a(String)
-      expect(data[:error]).to eq("invalid country or country does not have a capital")
-      expect(data).to_not have_key(:data)
-    end
+      expect(data).to have_key(:errors)
+      expect(data[:errors]).to be_an(Array)
+      expect(data[:errors][0]).to have_key(:status)
+      expect(data[:errors][0][:status]).to eq("404")
+
+      expect(data[:errors][0]).to have_key(:title)
+      expect(data[:errors][0][:title]).to eq("Country or Capital Not Found")
+  end
   end
 end

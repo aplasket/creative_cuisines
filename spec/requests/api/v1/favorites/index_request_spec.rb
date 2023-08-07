@@ -63,13 +63,17 @@ RSpec.describe "Favorites index request" do
       get "/api/v1/favorites?api_key=jgn983hy48thw9begh98h4539h42930182"
 
       expect(response).to_not be_successful
-      expect(response.status).to eq(400)
+      expect(response.status).to eq(401)
 
       fav_data = JSON.parse(response.body, symbolize_names: true)
 
-      expect(fav_data).to have_key(:error)
-      expect(fav_data[:error]).to be_a(String)
-      expect(fav_data[:error]).to eq("invalid credentials")
+      expect(fav_data).to have_key(:errors)
+      expect(fav_data[:errors]).to be_an(Array)
+      expect(fav_data[:errors][0]).to have_key(:status)
+      expect(fav_data[:errors][0][:status]).to eq("401")
+
+      expect(fav_data[:errors][0]).to have_key(:title)
+      expect(fav_data[:errors][0][:title]).to eq("Unauthorized user")
     end
 
     it "returns empty [] if user does not have any favories" do

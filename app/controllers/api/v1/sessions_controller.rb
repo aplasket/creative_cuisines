@@ -4,7 +4,7 @@ class Api::V1::SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       render json: UserSerializer.new(user), status: 200
     else
-      render json: { error: "Sorry, your credentials are bad." }, status: 400
+      render json: ErrorSerializer.new("Unauthorized user", "401").serialized_json, status: 401
     end
   end
 end
