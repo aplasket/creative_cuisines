@@ -47,4 +47,29 @@ RSpec.describe "Favorites index request" do
     end
   end
 
+  describe "sad paths" do
+    it "returns error for invalid api key" do
+      user = User.create!(name: "dog owner", email: "email@test.com", password: "luvdogs1", password_confirmation: "luvdogs1" )
+      favorite1 = Favorite.create(recipe_title: "Recipe: Egyptian Tomato Soup",
+                                  recipe_link: "http://www.thekitchn.com/recipe-egyptian-tomato-soup-weeknight....",
+                                  country: "egypt",
+                                  user_id: user.id )
+
+      favorite2 = Favorite.create(recipe_title: "Crab Fried Rice (Khaao Pad Bpu)",
+                                  recipe_link: "https://www.tastingtable.com/.....",
+                                  country: "thailand",
+                                  user_id: user.id )
+
+      get "/api/v1/favorites?api_key=jgn983hy48thw9begh98h4539h42930182"
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      fav_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(fav_data).to have_key(:error)
+      expect(fav_data[:error]).to be_a(String)
+      expect(fav_data[:error]).to eq("invalid credentials")
+    end
+  end
 end
