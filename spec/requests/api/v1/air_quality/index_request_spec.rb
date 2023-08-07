@@ -35,6 +35,14 @@ RSpec.describe "AirQuality Index Request" do
 
       expect(aq_data[:data][:attributes]).to have_key(:co_concentration)
       expect(aq_data[:data][:attributes][:co_concentration]).to be_a(Float)
+
+      expect(aq_data[:data][:attributes]).to_not have_key(:NO2)
+      expect(aq_data[:data][:attributes]).to_not have_key(:O3)
+      expect(aq_data[:data][:attributes]).to_not have_key(:SO2)
+      expect(aq_data[:data][:attributes]).to_not have_key(:PM10)
+      expect(aq_data[:data][:attributes]).to_not have_key(:CO)
+      expect(aq_data[:data][:attributes]).to_not have_key(:"PM2.5")
+      expect(aq_data[:data][:attributes]).to_not have_key(:overall_aqi)
     end
   end
 end
