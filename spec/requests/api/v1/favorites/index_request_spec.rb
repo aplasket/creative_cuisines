@@ -25,7 +25,7 @@ RSpec.describe "Favorites index request" do
       expect(fav_data[:data]).to be_an(Array)
 
       expect(fav_data[:data][0]).to have_key(:id)
-      expect(fav_data[:data][0][:id]).to eq(nil)
+      expect(fav_data[:data][0][:id]).to be_a(String)
 
       expect(fav_data[:data][0]).to have_key(:type)
       expect(fav_data[:data][0][:type]).to be_a(String)
