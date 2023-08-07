@@ -44,6 +44,41 @@ RSpec.describe "AirQuality Index Request" do
       expect(aq_data[:data][:attributes]).to_not have_key(:"PM2.5")
       expect(aq_data[:data][:attributes]).to_not have_key(:overall_aqi)
     end
+
+    it "fetchs airquality for a random country", :vcr do
+      params = {country: "random_country"}
+      country = CountryFacade.new(params[:country]).get_country
+
+      get "/api/v1/air_quality?country=#{country}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      aq_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(aq_data).to have_key(:data)
+      expect(aq_data[:data]).to be_a(Hash)
+      expect(aq_data[:data]).to have_key(:id)
+      expect(aq_data[:data][:id]).to eq(nil)
+
+      expect(aq_data[:data]).to have_key(:type)
+      expect(aq_data[:data][:type]).to be_a(String)
+      expect(aq_data[:data][:type]).to eq("air_quality")
+
+      expect(aq_data[:data]).to have_key(:city)
+      expect(aq_data[:data][:city]).to be_a(String)
+
+      expect(aq_data[:data]).to have_key(:attributes)
+      expect(aq_data[:data][:attributes]).to be_a(Hash)
+      expect(aq_data[:data][:attributes]).to have_key(:aqi)
+      expect(aq_data[:data][:attributes][:aqi]).to be_an(Integer)
+
+      expect(aq_data[:data][:attributes]).to have_key(:pm25_concentration)
+      expect(aq_data[:data][:attributes][:pm25_concentration]).to be_a(Float)
+
+      expect(aq_data[:data][:attributes]).to have_key(:co_concentration)
+      expect(aq_data[:data][:attributes][:co_concentration]).to be_a(Float)
+    end
   end
 
   describe "sad paths" do
