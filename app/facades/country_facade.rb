@@ -25,6 +25,11 @@ class CountryFacade
 
   def capital
     json = RestCountriesService.new.get_capital(@country)
-    capital = json[0][:capital][0]
+    
+    if json.kind_of?(Hash)
+      nil
+    else
+      capital = json[0][:capital][0]
+    end
   end
 end
