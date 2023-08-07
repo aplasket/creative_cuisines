@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "Recipes Index Request" do
-  describe "fetches all recipes" do
+  describe "happy path" do
     it "requests recipes from a specific country inputted by user", :vcr do
       get "/api/v1/recipes?country=thailand"
 
@@ -55,31 +55,6 @@ RSpec.describe "Recipes Index Request" do
       end
     end
 
-    it "returns empty data hash if query doesn't return any recipes", :vcr do
-      params = {country: "jpn"}
-      get "/api/v1/recipes?country=#{params[:country]}"
-
-      expect(response).to be_successful
-      expect(response.status).to eq(200)
-
-      data = JSON.parse(response.body, symbolize_names: true)
-
-      expect(data).to have_key(:data)
-      expect(data[:data]).to eq([])
-    end
-
-    it "returns empty data hash if user inputs empty string", :vcr do
-      get "/api/v1/recipes?country="
-
-      expect(response).to be_successful
-      expect(response.status).to eq(200)
-
-      data = JSON.parse(response.body, symbolize_names: true)
-
-      expect(data).to have_key(:data)
-      expect(data[:data]).to eq([])
-    end
-
     it "finds recipes based on random country when user selects 'choose country for me'", :vcr do
       params = {country: "random_country"}
       get "/api/v1/recipes?country=#{params[:country]}"
@@ -115,6 +90,33 @@ RSpec.describe "Recipes Index Request" do
         expect(recipe[:attributes]).to have_key(:image)
         expect(recipe[:attributes][:image]).to be_a(String)
       end
+    end
+  end
+
+  describe "sad path" do
+    it "returns data: [] if query doesn't return any recipes", :vcr do
+      params = {country: "jpn"}
+      get "/api/v1/recipes?country=#{params[:country]}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data).to have_key(:data)
+      expect(data[:data]).to eq([])
+    end
+
+    it "returns data: [] if user inputs empty string", :vcr do
+      get "/api/v1/recipes?country="
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(data).to have_key(:data)
+      expect(data[:data]).to eq([])
     end
   end
 end
