@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "AirQuality Index Request" do
   describe "happy paths" do
-    it "fetches airquality via country query" do
+    it "fetches airquality via country query", :vcr do
       params = {country: "Nigeria"}
 
       get "/api/v1/air_quality?country=#{params[:country]}"
@@ -12,7 +12,7 @@ RSpec.describe "AirQuality Index Request" do
 
       data = JSON.parse(response.body, symbolize_names: true)
       binding.pry
-      
+
     end
   end
 end
