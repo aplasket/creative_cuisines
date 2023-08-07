@@ -58,7 +58,7 @@ RSpec.describe "Sessions Create Request" do
         post "/api/v1/sessions", headers: headers, params: JSON.generate(user_params)
 
         expect(response).to_not be_successful
-        expect(response.status).to eq(400)
+        expect(response.status).to eq(401)
 
         user = JSON.parse(response.body, symbolize_names: true)
 
