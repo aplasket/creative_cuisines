@@ -19,9 +19,6 @@ RSpec.describe RestCountriesService do
 
   describe "#get_capital" do
     it "establishes a connection to restcountries api and fetches the capital", :vcr do
-      # search = RestCountriesService.new.get_random_country
-      # country = search.first[:name][:common]
-
       params = { country: "France" }
 
       country_data = RestCountriesService.new.get_capital(params[:country])
@@ -33,6 +30,19 @@ RSpec.describe RestCountriesService do
       expect(country_data[0]).to have_key(:capital)
       expect(country_data[0][:capital]).to be_an(Array)
       expect(country_data[0][:capital][0]).to eq("Paris")
+    end
+
+    it "can get capital for a random country", :vcr do
+      params = {country: "random_country"}
+      country = CountryFacade.new(params[:country]).get_country
+      country_data = RestCountriesService.new.get_capital(country)
+
+      expect(country_data).to be_an(Array)
+      expect(country_data[0]).to have_key(:name)
+      expect(country_data[0][:name][:common]).to eq(country)
+
+      expect(country_data[0]).to have_key(:capital)
+      expect(country_data[0][:capital]).to be_an(Array)
     end
   end
 end

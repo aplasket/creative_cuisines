@@ -4,9 +4,9 @@ class RestCountriesService
   end
 
   def get_capital(country)
-    # formatted_country = country.split.join("%")
-    # get_url("/v3.1/name/#{formatted_country}?fullText=true")
-    get_url("/v3.1/name/#{country}")
+    formatted_country = country.split.join("%20")
+    get_url("/v3.1/name/#{formatted_country}?fullText=true")
+    # get_url("/v3.1/name/#{country}")
   end
 
   def get_url(url)
