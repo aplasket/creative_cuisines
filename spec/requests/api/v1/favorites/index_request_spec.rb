@@ -71,5 +71,19 @@ RSpec.describe "Favorites index request" do
       expect(fav_data[:error]).to be_a(String)
       expect(fav_data[:error]).to eq("invalid credentials")
     end
+
+    it "returns empty [] if user does not have any favories" do
+      user = User.create!(name: "Maya Ha", email: "email_maya@test.com", password: "luvdogs1", password_confirmation: "luvdogs1" )
+
+      get "/api/v1/favorites?api_key=#{user.api_key}"
+
+      expect(response).to be_successful
+      expect(response.status).to eq(200)
+
+      fav_data = JSON.parse(response.body, symbolize_names: true)
+
+      expect(fav_data).to have_key(:data)
+      expect(fav_data[:data]).to eq([])
+    end
   end
 end
