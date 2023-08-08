@@ -72,6 +72,9 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.filter_sensitive_data('EDAMAM_ID') { ENV['EDAMAM_ID'] }
   config.filter_sensitive_data('EDAMAM_KEY') { ENV['EDAMAM_KEY'] }
+  config.filter_sensitive_data('GOOGLE_TOKEN') { ENV['GOOGLE_TOKEN'] }
+  config.filter_sensitive_data('UNSPLASH_TOKEN') { ENV['UNSPLASH_TOKEN'] }
+  config.filter_sensitive_data('API_NINJAS') { ENV['API_NINJAS'] }
   config.configure_rspec_metadata!
   config.default_cassette_options = { :allow_playback_repeats => true }
   config.default_cassette_options = { re_record_interval: 2.seconds}
